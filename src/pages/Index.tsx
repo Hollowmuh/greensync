@@ -1,7 +1,8 @@
-import { TreeDeciduous, TreePalm, TreePine, DollarSign } from "lucide-react";
+import { TreeDeciduous, TreePalm, TreePine, DollarSign, ChevronDown, Sprout, Leaf, LineChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatsCard } from "@/components/StatsCard";
 import { ProcessCard } from "@/components/ProcessCard";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const Index = () => {
   return (
@@ -54,6 +55,10 @@ const Index = () => {
               delay="0.3s"
             />
           </div>
+
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <ChevronDown className="w-8 h-8 text-white/80" />
+          </div>
         </div>
       </section>
 
@@ -68,19 +73,19 @@ const Index = () => {
             <ProcessCard
               title="Plant & Grow"
               description="Farmers plant and nurture trees using sustainable practices"
-              icon={<TreeDeciduous size={32} />}
+              icon={<Sprout size={32} />}
               delay="0s"
             />
             <ProcessCard
               title="Verify & Track"
               description="AI-powered verification ensures growth and health"
-              icon={<TreePalm size={32} />}
+              icon={<Leaf size={32} />}
               delay="0.2s"
             />
             <ProcessCard
               title="Invest & Earn"
               description="Generate returns while supporting reforestation"
-              icon={<TreePine size={32} />}
+              icon={<LineChart size={32} />}
               delay="0.4s"
             />
           </div>
@@ -95,11 +100,37 @@ const Index = () => {
           </h2>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-60">
-            {/* Placeholder logos - replace with actual partner logos */}
+            {/* Placeholder logos */}
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="w-32 h-12 bg-forest/20 rounded animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Impact Section */}
+      <section className="py-24 px-4 bg-white">
+        <div className="container mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-forest text-center mb-16">
+            Our Impact Stories
+          </h2>
+
+          <Carousel className="w-full max-w-4xl mx-auto">
+            <CarouselContent>
+              {Array.from({ length: 3 }).map((_, i) => (
+                <CarouselItem key={i}>
+                  <div className="p-6 bg-sage/10 rounded-lg">
+                    <p className="text-lg text-forest/80 italic mb-4">
+                      "Thanks to GreenHarvest Network, we've transformed our land into a thriving forest that generates sustainable income."
+                    </p>
+                    <p className="text-forest font-semibold">- Local Farmer {i + 1}</p>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       </section>
     </div>
