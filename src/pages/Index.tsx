@@ -1,12 +1,14 @@
-import { TreeDeciduous, TreePalm, TreePine, DollarSign, ChevronDown, Sprout, Leaf, LineChart } from "lucide-react";
+import { TreeDeciduous, TreePalm, TreePine, DollarSign, ChevronDown, Sprout, Leaf, LineChart, Shield, Award, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatsCard } from "@/components/StatsCard";
 import { ProcessCard } from "@/components/ProcessCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { TreeVerificationCard } from "@/components/ai/TreeVerificationCard";
+import { GrowthTrackingCard } from "@/components/ai/GrowthTrackingCard";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-b from-forest/5 to-sage/10">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center bg-gradient-to-b from-forest to-forest/90 text-white px-4">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86')] bg-cover bg-center mix-blend-overlay opacity-20" />
@@ -63,7 +65,7 @@ const Index = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-24 px-4 bg-white">
+      <section className="py-24 px-4 bg-white/80 backdrop-blur">
         <div className="container mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-forest text-center mb-16">
             How It Works
@@ -72,19 +74,19 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <ProcessCard
               title="Plant & Grow"
-              description="Farmers plant and nurture trees using sustainable practices"
+              description="Our network of certified farmers use sustainable practices to plant and nurture native tree species"
               icon={<Sprout size={32} />}
               delay="0s"
             />
             <ProcessCard
               title="Verify & Track"
-              description="AI-powered verification ensures growth and health"
+              description="AI-powered verification ensures optimal growth and health through regular monitoring"
               icon={<Leaf size={32} />}
               delay="0.2s"
             />
             <ProcessCard
               title="Invest & Earn"
-              description="Generate returns while supporting reforestation"
+              description="Generate competitive returns while contributing to global reforestation efforts"
               icon={<LineChart size={32} />}
               delay="0.4s"
             />
@@ -92,45 +94,116 @@ const Index = () => {
         </div>
       </section>
 
+      {/* AI Technology Showcase */}
+      <section className="py-24 px-4 bg-forest/5">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-forest mb-4">
+              AI-Powered Verification
+            </h2>
+            <p className="text-lg text-forest/70 max-w-2xl mx-auto">
+              Our advanced AI technology ensures accurate tracking and verification of tree growth,
+              providing real-time insights and projections for optimal forest management.
+            </p>
+          </div>
+
+          <div className="space-y-12">
+            <TreeVerificationCard />
+            <GrowthTrackingCard />
+          </div>
+        </div>
+      </section>
+
       {/* Trust Section */}
-      <section className="py-24 px-4 bg-sage/10">
+      <section className="py-24 px-4 bg-white/80 backdrop-blur">
         <div className="container mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-forest mb-16">
             Trusted by Industry Leaders
           </h2>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-60">
-            {/* Placeholder logos */}
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="w-32 h-12 bg-forest/20 rounded animate-fade-up" style={{ animationDelay: `${i * 0.1}s` }} />
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="p-6 bg-forest/5 rounded-lg">
+              <Shield className="w-12 h-12 text-forest mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-forest mb-2">Certified Security</h3>
+              <p className="text-forest/70">
+                ISO 27001 certified platform ensuring your investments are protected
+              </p>
+            </div>
+            <div className="p-6 bg-forest/5 rounded-lg">
+              <Award className="w-12 h-12 text-forest mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-forest mb-2">Award Winning</h3>
+              <p className="text-forest/70">
+                Recognized for innovation in sustainable forestry management
+              </p>
+            </div>
+            <div className="p-6 bg-forest/5 rounded-lg">
+              <Users className="w-12 h-12 text-forest mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-forest mb-2">Global Community</h3>
+              <p className="text-forest/70">
+                Join thousands of investors making a positive impact
+              </p>
+            </div>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <Carousel>
+              <CarouselContent>
+                {[1, 2, 3].map((index) => (
+                  <CarouselItem key={index}>
+                    <div className="p-6 bg-forest/5 rounded-lg">
+                      <p className="text-lg text-forest/80 italic mb-4">
+                        "GreenHarvest Network has transformed our approach to sustainable forestry.
+                        The AI-powered verification system provides unprecedented accuracy and efficiency."
+                      </p>
+                      <div className="flex items-center justify-center gap-4">
+                        <div className="w-12 h-12 bg-forest/20 rounded-full" />
+                        <div className="text-left">
+                          <p className="font-semibold text-forest">Dr. Sarah Chen</p>
+                          <p className="text-sm text-forest/70">Environmental Scientist</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
           </div>
         </div>
       </section>
 
       {/* Impact Section */}
-      <section className="py-24 px-4 bg-white">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-forest text-center mb-16">
-            Our Impact Stories
+      <section className="py-24 px-4 bg-forest/5">
+        <div className="container mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-forest mb-16">
+            Our Global Impact
           </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="p-6 bg-white/80 backdrop-blur rounded-lg">
+              <p className="text-4xl font-bold text-forest mb-2">12+</p>
+              <p className="text-forest/70">Countries</p>
+            </div>
+            <div className="p-6 bg-white/80 backdrop-blur rounded-lg">
+              <p className="text-4xl font-bold text-forest mb-2">1.2M</p>
+              <p className="text-forest/70">Trees Planted</p>
+            </div>
+            <div className="p-6 bg-white/80 backdrop-blur rounded-lg">
+              <p className="text-4xl font-bold text-forest mb-2">15K+</p>
+              <p className="text-forest/70">Hectares Protected</p>
+            </div>
+            <div className="p-6 bg-white/80 backdrop-blur rounded-lg">
+              <p className="text-4xl font-bold text-forest mb-2">50K+</p>
+              <p className="text-forest/70">Carbon Credits Generated</p>
+            </div>
+          </div>
 
-          <Carousel className="w-full max-w-4xl mx-auto">
-            <CarouselContent>
-              {Array.from({ length: 3 }).map((_, i) => (
-                <CarouselItem key={i}>
-                  <div className="p-6 bg-sage/10 rounded-lg">
-                    <p className="text-lg text-forest/80 italic mb-4">
-                      "Thanks to GreenHarvest Network, we've transformed our land into a thriving forest that generates sustainable income."
-                    </p>
-                    <p className="text-forest font-semibold">- Local Farmer {i + 1}</p>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          <div className="aspect-[2/1] bg-white/80 backdrop-blur rounded-lg p-8">
+            <div className="w-full h-full bg-forest/5 rounded-lg flex items-center justify-center">
+              <p className="text-forest/50">Interactive World Map Coming Soon</p>
+            </div>
+          </div>
         </div>
       </section>
     </div>
