@@ -14,15 +14,13 @@ const data = [
 
 export const GrowthChart = () => {
   return (
-    <Card className="bg-white">
+    <Card className="w-full h-full bg-white/90 dark:bg-forest-dark/90">
       <CardHeader>
-        <CardTitle className="text-forest flex items-center gap-2">
-          <Activity className="h-5 w-5" />
-          Growth Projection
+        <CardTitle className="text-forest dark:text-leaf flex items-center gap-2">
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="h-[200px]">
+      <CardContent className="h-[calc(100%-64px)] px-4 py-2">
+        <ResponsiveContainer width="100%" height="100%">
           <ChartContainer
             config={{
               actual: { color: "#2D5A27" },
@@ -30,8 +28,17 @@ export const GrowthChart = () => {
             }}
           >
             <AreaChart data={data}>
-              <XAxis dataKey="month" />
-              <YAxis />
+              <XAxis 
+                dataKey="month" 
+                axisLine={false} 
+                tickLine={false}
+                className="text-xs"
+              />
+              <YAxis 
+                axisLine={false} 
+                tickLine={false}
+                className="text-xs"
+              />
               <ChartTooltip />
               <Area
                 type="monotone"
@@ -50,7 +57,7 @@ export const GrowthChart = () => {
               />
             </AreaChart>
           </ChartContainer>
-        </div>
+        </ResponsiveContainer>
       </CardContent>
     </Card>
   );

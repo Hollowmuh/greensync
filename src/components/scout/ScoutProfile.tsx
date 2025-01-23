@@ -17,7 +17,7 @@ export const ScoutProfile = () => {
               <User className="h-8 w-8 text-forest" />
             </div>
             <div>
-              <h3 className="font-semibold text-forest">John Smith</h3>
+              <h3 className="font-semibold text-forest">Martins Mellow</h3>
               <p className="text-sm text-gray-600">Active since Jan 2024</p>
             </div>
           </div>
@@ -27,7 +27,7 @@ export const ScoutProfile = () => {
           </div>
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4 text-forest" />
-            <span className="font-medium">12 Active Investors</span>
+            <span className="font-medium">12 Active Farms </span>
           </div>
         </div>
       </CardContent>

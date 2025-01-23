@@ -30,11 +30,10 @@ export const ImpactDashboard = () => {
   ];
 
   return (
-    <Card className="bg-white">
+    <Card className="w-full bg-white/90 dark:bg-forest-dark/90 shadow-md">
       <CardHeader>
-        <CardTitle className="text-forest flex items-center gap-2">
-          <Leaf className="h-5 w-5" />
-          Impact Dashboard
+        <CardTitle className="text-forest dark:text-leaf flex items-center gap-3">
+         
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -42,16 +41,20 @@ export const ImpactDashboard = () => {
           {impacts.map((impact) => (
             <div
               key={impact.title}
-              className="rounded-lg border p-4 hover:border-forest transition-colors"
+              className="bg-forest/5 dark:bg-forest-dark/20 rounded-xl p-5 hover:bg-forest/10 dark:hover:bg-forest-dark/30 transition-all duration-300 ease-in-out"
             >
-              <h3 className="text-sm text-muted-foreground">{impact.title}</h3>
-              <p className="text-2xl font-bold text-forest mt-2">
+              <h3 className="text-sm text-forest/70 dark:text-leaf/70 mb-2">
+                {impact.title}
+              </h3>
+              <p className="text-3xl font-bold text-forest dark:text-leaf mb-2">
                 {impact.value}
-                <span className="text-sm font-normal text-muted-foreground ml-1">
+                <span className="text-base font-normal text-forest/60 dark:text-leaf/60 ml-2">
                   {impact.unit}
                 </span>
               </p>
-              <p className="text-sm text-sage mt-2">{impact.change}</p>
+              <p className="text-sm text-sage dark:text-green-300 font-medium">
+                {impact.change}
+              </p>
             </div>
           ))}
         </div>
