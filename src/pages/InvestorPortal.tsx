@@ -1,29 +1,41 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, Leaf, TreeDeciduous, Activity } from "lucide-react";
+import { DollarSign, History, User, TrendingUp } from "lucide-react";
 import { InvestmentOverview } from "@/components/investor/InvestmentOverview";
-import { TreePortfolio } from "@/components/investor/TreePortfolio";
 import { GrowthChart } from "@/components/investor/GrowthChart";
-import { InvestmentPackages } from "@/components/investor/InvestmentPackages";
-import { RoiCalculator } from "@/components/investor/RoiCalculator";
+import { InvestmentHistory } from "@/components/investor/InvestmentHistory";
+import { WithdrawalHistory } from "@/components/investor/WithdrawalHistory";
+import { InvestorProfile } from "@/components/investor/InvestorProfile";
 import { ImpactDashboard } from "@/components/investor/ImpactDashboard";
 
 const InvestorPortal = () => {
   return (
-    <div className="min-h-screen bg-background p-6 space-y-6">
-      <h1 className="text-3xl font-bold text-forest">Investor Dashboard</h1>
+    <div className="min-h-screen bg-gradient-to-br from-forest-light/5 to-sage-light/10 p-8 space-y-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+        <h1 className="text-4xl font-bold text-forest">Investor Dashboard</h1>
+        <div className="flex items-center gap-2 bg-white/80 backdrop-blur rounded-lg px-4 py-2">
+          <div className="h-3 w-3 rounded-full bg-leaf animate-pulse" />
+          <span className="text-forest-dark text-sm">Live Updates</span>
+        </div>
+      </div>
       
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <InvestmentOverview />
-        <TreePortfolio />
-        <GrowthChart />
+      <div className="grid gap-6 md:grid-cols-12">
+        <div className="md:col-span-4">
+          <InvestorProfile />
+        </div>
+        <div className="md:col-span-8">
+          <InvestmentOverview />
+        </div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <InvestmentPackages />
-        <RoiCalculator />
+        <InvestmentHistory />
+        <WithdrawalHistory />
       </div>
 
-      <ImpactDashboard />
+      <div className="grid gap-6 md:grid-cols-2">
+        <GrowthChart />
+        <ImpactDashboard />
+      </div>
     </div>
   );
 };
