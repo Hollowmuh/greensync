@@ -39,10 +39,16 @@ export default {
           light: "#A8F2A8",
           dark: "#74D674",
         },
-        background: "#F5F8F5",
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
+        emerald: {
+          DEFAULT: "#50C878",
+          light: "#6EDE96",
+          dark: "#3EA65A",
+        },
+        earth: {
+          DEFAULT: "#795548",
+          light: "#8D6E63",
+          dark: "#5D4037",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -53,6 +59,9 @@ export default {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
