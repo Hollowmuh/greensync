@@ -4,8 +4,28 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { GrowthTrackingCard } from "@/components/ai/GrowthTrackingCard";
+import { VerificationModal } from "@/components/scout/VerificationModal";
+import { ScoutProfile } from "@/components/scout/ScoutProfile";
+import { VerificationHistory } from "@/components/scout/VerificationHistory";
+import { FarmAssignment } from "@/components/scout/FarmAssignment";
+import { useEffect, useState } from "react";
 
 const ScoutPortal = () => {
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
   const verifications = [
     { id: 1, date: '2024-01-15', nextDue: '2024-04-15', status: 'completed' },
     { id: 2, date: '2024-02-01', nextDue: '2024-05-01', status: 'pending' },
@@ -24,130 +44,110 @@ const ScoutPortal = () => {
 
   return (
     <div className="min-h-screen bg-forest/10 p-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {/* Scout Rating Card */}
-        <Card className="bg-white/80 backdrop-blur">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Star className="h-5 w-5 text-forest" />
-              Scout Rating
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-2">
-              <div className="flex">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    className={`h-6 w-6 ${star <= 4 ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`}
-                  />
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Online/Offline Status */}
+        <div className={`fixed bottom-4 right-4 px-4 py-2 rounded-full ${
+          isOnline ? 'bg-green-500' : 'bg-yellow-500'
+        } text-white flex items-center gap-2`}>
+          <div className={`w-2 h-2 rounded-full ${
+            isOnline ? 'bg-white animate-pulse' : 'bg-white'
+          }`} />
+          {isOnline ? 'Online' : 'Offline Mode'}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex gap-4">
+          <VerificationModal />
+          <FarmAssignment />
+        </div>
+
+        {/* Top Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <ScoutProfile />
+          <Card className="md:col-span-2 bg-white/80 backdrop-blur">
+            <CardHeader>
+              <CardTitle>Verification Schedule</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {verifications.map((verification) => (
+                  <div key={verification.id} className="flex justify-between items-center p-4 bg-forest/5 rounded-lg">
+                    <div>
+                      <p className="font-medium">Last verified: {verification.date}</p>
+                      <p className="text-sm text-forest">Next due: {verification.nextDue}</p>
+                    </div>
+                    <span className={`px-3 py-1 rounded-full text-sm ${
+                      verification.status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {verification.status}
+                    </span>
+                  </div>
                 ))}
               </div>
-              <span className="text-lg font-semibold">4.0</span>
-            </div>
-            <p className="text-sm text-gray-600 mt-2">Based on 128 verifications</p>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
 
-        {/* Verification Schedule Card */}
-        <Card className="bg-white/80 backdrop-blur">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-forest" />
-              Verification Schedule
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span>Next verification due</span>
-                <span className="font-bold text-forest">April 15, 2024</span>
+        {/* Middle Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="bg-white/80 backdrop-blur">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-forest" />
+                Assigned Farms
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {farms.map((farm) => (
+                  <div key={farm.id} className="p-4 bg-sage/20 rounded-lg">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-semibold text-forest">{farm.name}</h3>
+                        <p className="text-sm text-gray-600">{farm.coordinates}</p>
+                      </div>
+                      <div className="text-right">
+                        <span className="font-bold text-forest">{farm.trees}</span>
+                        <p className="text-sm text-gray-600">trees</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="flex justify-between items-center">
-                <span>Last verified</span>
-                <span className="text-gray-600">January 15, 2024</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        {/* Payment Overview Card */}
-        <Card className="bg-white/80 backdrop-blur">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <DollarSign className="h-5 w-5 text-forest" />
-              Payment Overview
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span>Monthly earnings</span>
-                <span className="font-bold text-forest">$500</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span>Trees verified bonus</span>
-                <span className="text-forest">+$150</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+          <VerificationHistory />
+        </div>
+
+        {/* Bottom Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card className="bg-white/80 backdrop-blur">
+            <CardHeader>
+              <CardTitle>Payment History</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ScrollArea className="h-[300px]">
+                <div className="space-y-4">
+                  {payments.map((payment) => (
+                    <div key={payment.id} className="flex items-center justify-between p-3 bg-sage/20 rounded-lg">
+                      <div>
+                        <div className="font-medium">${payment.amount}</div>
+                        <div className="text-sm text-gray-500">{payment.date}</div>
+                      </div>
+                      <span className="px-2 py-1 text-sm bg-green-100 text-green-800 rounded">
+                        {payment.status}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
+            </CardContent>
+          </Card>
+
+          <GrowthTrackingCard />
+        </div>
       </div>
-
-      {/* Farms List */}
-      <Card className="mb-8 bg-white/80 backdrop-blur">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-forest" />
-            Assigned Farms
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {farms.map((farm) => (
-              <div key={farm.id} className="p-4 bg-sage/20 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="font-semibold text-forest">{farm.name}</h3>
-                    <p className="text-sm text-gray-600">{farm.coordinates}</p>
-                  </div>
-                  <div className="text-right">
-                    <span className="font-bold text-forest">{farm.trees}</span>
-                    <p className="text-sm text-gray-600">trees</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Growth Tracking */}
-      <GrowthTrackingCard />
-
-      {/* Payment History */}
-      <Card className="mt-8 bg-white/80 backdrop-blur">
-        <CardHeader>
-          <CardTitle>Payment History</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ScrollArea className="h-[300px]">
-            <div className="space-y-4">
-              {payments.map((payment) => (
-                <div key={payment.id} className="flex items-center justify-between p-3 bg-sage/20 rounded-lg">
-                  <div>
-                    <div className="font-medium">${payment.amount}</div>
-                    <div className="text-sm text-gray-500">{payment.date}</div>
-                  </div>
-                  <span className="px-2 py-1 text-sm bg-green-100 text-green-800 rounded">
-                    {payment.status}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
-        </CardContent>
-      </Card>
     </div>
   );
 };
